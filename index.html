@@ -49,12 +49,19 @@
       a {
         cursor: pointer;
       }
-      h1 {
+      h1,
+      h2 {
         text-decoration: underline;
-        text-decoration-thickness: 3px;
         font-family: headFont, sans-serif;
         margin-top: 0;
         margin-bottom: 0.9rem;
+      }
+      h2 {
+        padding: 0;
+        margin: 0;
+      }
+      h1 {
+        text-decoration-thickness: 3px;
         font-size: 4.1rem;
       }
       footer {
@@ -98,7 +105,7 @@
       #singleplayerButton {
         background-color: hsl(204, 70%, 53%);
         transition: all 0.2s ease-in-out;
-        margin: 2px;
+        margin: 5px;
       }
       #singleplayerButton:hover {
         background-color: hsl(204, 70%, 60%);
@@ -107,7 +114,7 @@
       #multiplayerButton {
         background-color: hsl(28, 80%, 52%);
         transition: all 0.2s ease-in-out;
-        margin: 2px;
+        margin: 5px;
       }
       #multiplayerButton:hover {
         background-color: hsl(28, 80%, 60%);
@@ -132,6 +139,31 @@
         font-size: 1.8rem;
         color: hsl(0, 0%, 85%);
       }
+      #restartButton {
+        background-color: red;
+        transition: all 0.2s ease-in-out;
+        margin: 0.5rem;
+      }
+      #restartButton:hover {
+        background-color: hsl(0, 100%, 60%);
+        font-size: 1.35rem;
+      }
+      #selections,
+      #p1Num1,
+      #p1Num2,
+      #p2Num1,
+      #p2Num2,
+      #gameContainer {
+        display: none;
+      }
+      p {
+        margin: 0.5rem;
+        padding: 0;
+      }
+      #images img {
+        margin: 0;
+        padding: 0;
+      }
     </style>
   </head>
   <body>
@@ -154,7 +186,9 @@
           between 1 and 2 and you have to guess it and its the same point giving
           system. The game continues like this until you or your opponent
           reaches the goal number. You can play this game with a bot or with
-          another friend. Good luck!
+          another friend. You have to play with another friend on the same, you
+          must enter your names, then you must select your number without the
+          other person looking. Good luck!
         </details>
         <hr />
         <div id="modes">
@@ -166,6 +200,36 @@
           <div id="images">
             <img src="images/num1.svg" alt="number 1" id="num1" />
             <img src="images/num2.svg" alt="number 2" id="num2" />
+          </div>
+          <div id="selections">
+            <!-- p1 Decisions: -->
+            <p id="p1DecisionImages">
+              <img src="images/num1.svg" alt="number 1" id="p1Num1" />
+              <img src="images/num2.svg" alt="number 2" id="p1Num2" />
+            </p>
+            <p id="p1DecisionText">
+              <span id="p1NameSpan">Name</span> chose the number
+              <span id="p1ChoseNumSpan">0</span>
+            </p>
+            <!-- p2 Decisions: -->
+            <p id="p2DecisionImages">
+              <img src="images/num1.svg" alt="number 1" id="p2Num1" />
+              <img src="images/num2.svg" alt="number 2" id="p2Num2" />
+            </p>
+            <p id="p2DecisionText">
+              <span id="p2NameSpan">Name</span> chose the number
+              <span id="p2ChoseNumSpan">0</span>
+            </p>
+          </div>
+          <button id="restartButton">Restart</button> <br />
+          <div id="points">
+            <fieldset>
+              <legend>
+                <h2>Points:</h2>
+              </legend>
+              <p id="p1NameP">p1: <span id="p1PointsSpan">0</span></p>
+              <p id="p2NameP">p2: <span id="p2PointsSpan">0</span></p>
+            </fieldset>
           </div>
         </div>
       </main>
@@ -197,7 +261,7 @@
         ></a>
         <br />
         &copy;Copyright, Sai Sriyan Nakka 2025, All Rights Reserved.
-        <br />Version 0.21 <br />
+        <br />Version 0.31 <br />
       </center>
     </footer>
   </body>
