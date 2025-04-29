@@ -2,6 +2,8 @@ let p1Name = "";
 let p2Name = "";
 let p1Points = 0;
 let p2Points = 0;
+let p1Turn = true;
+let p2Turn = false;
 
 document.querySelector("#singleplayerButton").onclick = function () {
   playGame("singleplayer");
@@ -47,8 +49,6 @@ function playGame(mode) {
       document.querySelector("#gameContainer").style.display = "block";
       document.querySelector("#images").style.display = "block";
       document.querySelector("#restartButton").style.display = "inline-block";
-
-      //singleplayer 1 and 2 button functions in progress...
       break;
 
     case "multiplayer":
@@ -93,3 +93,10 @@ function playGame(mode) {
       break;
   }
 }
+
+document.querySelector("#num1").onclick = function () {
+  //in progress...
+};
+document.querySelector("#num2").onclick = function () {
+  //in progress...
+};
