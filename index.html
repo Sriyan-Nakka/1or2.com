@@ -45,6 +45,7 @@
       }
       footer {
         font-size: 1.25rem;
+        padding: 0.5rem;
       }
       a {
         cursor: pointer;
@@ -164,6 +165,13 @@
         margin: 0;
         padding: 0;
       }
+      #points {
+        display: inline-block;
+      }
+      fieldset {
+        border: 5px solid whitesmoke;
+        border-radius: 10px;
+      }
     </style>
   </head>
   <body>
@@ -227,8 +235,16 @@
               <legend>
                 <h2>Points:</h2>
               </legend>
-              <p id="p1NameP">p1: <span id="p1PointsSpan">0</span></p>
-              <p id="p2NameP">p2: <span id="p2PointsSpan">0</span></p>
+              <p id="p1NamePara">
+                <span id="p1Name"><b>p1</b></span
+                >:
+                <span id="p1PointsSpan">0</span>
+              </p>
+              <p id="p2NamePara">
+                <span id="p2Name"><b>p2</b></span
+                >:
+                <span id="p2PointsSpan">0</span>
+              </p>
             </fieldset>
           </div>
         </div>
@@ -261,7 +277,7 @@
         ></a>
         <br />
         &copy;Copyright, Sai Sriyan Nakka 2025, All Rights Reserved.
-        <br />Version 0.31 <br />
+        <br />Version 0.4 <br />
       </center>
     </footer>
   </body>
