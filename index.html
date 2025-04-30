@@ -149,11 +149,16 @@
         background-color: hsl(0, 100%, 60%);
         font-size: 1.35rem;
       }
+      #continueButton {
+        background-color: hsl(90, 65%, 55%);
+        transition: all 0.2s ease-in-out;
+        margin: 0.5rem;
+      }
+      #continueButton:hover {
+        background-color: greenyellow;
+        font-size: 1.35rem;
+      }
       #selections,
-      #p1Num1,
-      #p1Num2,
-      #p2Num1,
-      #p2Num2,
       #gameContainer {
         display: none;
       }
@@ -171,6 +176,9 @@
       fieldset {
         border: 5px solid whitesmoke;
         border-radius: 10px;
+      }
+      #numMatchResults {
+        font-size: 1.8rem;
       }
     </style>
   </head>
@@ -208,7 +216,7 @@
           <p id="pickNumberText">
             <u>
               <span id="playerNamePick">Player</span>, select a number between 1
-              and 2:
+              and 2 for <span id="playerGuessPick">Opponent</span> to guess:
             </u>
           </p>
           <div id="images">
@@ -234,7 +242,13 @@
               <span id="p2NameSpan">Name</span> chose the number
               <span id="p2ChoseNumSpan">0</span>
             </p>
+            <b>
+              <span id="numMatchResults"></span>
+            </b>
           </div>
+          <span id="continueButtonSpan">
+            <button id="continueButton">Continue</button> <br />
+          </span>
           <button id="restartButton">Restart</button> <br />
           <div id="points">
             <fieldset>
@@ -282,7 +296,7 @@
         ></a>
         <br />
         &copy;Copyright, Sai Sriyan Nakka 2025, All Rights Reserved.
-        <br />Version 0.45 <br />
+        <br />Version 0.48 <br />
       </center>
     </footer>
   </body>

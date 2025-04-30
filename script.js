@@ -4,33 +4,24 @@ let p1Points = 0;
 let p2Points = 0;
 let goalNum;
 let playMode = "";
+let p1Decision;
+let p2Decision;
 
 document.querySelector("#singleplayerButton").onclick = function () {
-  playGame("singleplayer");
   playMode = "singleplayer";
+  playGame(playMode);
 };
 
 document.querySelector("#multiplayerButton").onclick = function () {
-  playGame("multiplayer");
   playMode = "multiplayer";
+  playGame(playMode);
 };
 
 document.querySelector("#restartButton").onclick = function () {
-  p1Points = 0;
-  p2Points = 0;
-  document.querySelector("#p1PointsSpan").textContent = p1Points;
-  document.querySelector("#p2PointsSpan").textContent = p2Points;
-
-  p1Name = "p1";
-  p2Name = "p2";
-  document.querySelector("#p1Name").textContent = p1Name;
-  document.querySelector("#p2Name").textContent = p2Name;
-
   document.querySelector("#singleplayerButton").style.display = "inline-block";
   document.querySelector("#multiplayerButton").style.display = "inline-block";
   document.querySelector("#gameContainer").style.display = "none";
   document.querySelector("#images").style.display = "none";
-  document.querySelector("#restartButton").style.display = "inline-block";
 };
 
 function playGame(mode) {
@@ -56,7 +47,10 @@ function playGame(mode) {
 
   document.querySelector("#singleplayerButton").style.display = "none";
   document.querySelector("#multiplayerButton").style.display = "none";
+  document.querySelector("#continueButtonSpan").style.display = "none";
+  document.querySelector("#selections").style.display = "none";
   document.querySelector("#gameContainer").style.display = "block";
+  document.querySelector("#pickNumberText").style.display = "block";
   document.querySelector("#images").style.display = "block";
   document.querySelector("#restartButton").style.display = "inline-block";
 
@@ -66,6 +60,9 @@ function playGame(mode) {
       p2Name = "Bot";
       document.querySelector("#p1Name").textContent = p1Name;
       document.querySelector("#p2Name").textContent = p2Name;
+      document.querySelector("#playerNamePick").textContent = p1Name;
+      document.querySelector("#playerGuessPick").textContent = "the " + p2Name;
+
       break;
 
     case "multiplayer":
@@ -91,6 +88,8 @@ function playGame(mode) {
         if (p2Name != null && p2Name != "" && p2Name != undefined) {
           p2Name = p2Name.trim();
           document.querySelector("#p2Name").textContent = p2Name;
+          document.querySelector("#playerNamePick").textContent = p1Name;
+          document.querySelector("#playerGuessPick").textContent = p2Name;
           break;
         } else {
           alert("Please enter a valid name for Player 2.");
@@ -98,23 +97,73 @@ function playGame(mode) {
       }
       break;
   }
-  document.querySelector("#playerNamePick").textContent = p1Name;
+  document.querySelector("#p1NameSpan").textContent = p1Name;
+  document.querySelector("#p2NameSpan").textContent = p2Name;
+  document.querySelector("#numMatchResults").textContent = "";
 }
 
-//playersTurn functions:
+//players turn functions:
 document.querySelector("#num1").onclick = function () {
-  //in progress...
-  botTurn(playMode);
+  document.querySelector("#pickNumberText").style.display = "none";
+  document.querySelector("#images").style.display = "none";
+  document.querySelector("#selections").style.display = "block";
+  p1Decision = 1;
+  document.querySelector("#p1ChoseNumSpan").textContent = p1Decision;
+  document.querySelector("#p1Num1").style.display = "inline-block";
+  document.querySelector("#p1Num2").style.display = "none";
+
+  p2Turn(playMode);
 };
 
 document.querySelector("#num2").onclick = function () {
-  //in progress...
-  botTurn(playMode);
+  document.querySelector("#pickNumberText").style.display = "none";
+  document.querySelector("#images").style.display = "none";
+  document.querySelector("#selections").style.display = "block";
+  p1Decision = 2;
+  document.querySelector("#p1ChoseNumSpan").textContent = p1Decision;
+  document.querySelector("#p1Num1").style.display = "none";
+  document.querySelector("#p1Num2").style.display = "inline-block";
+
+  p2Turn(playMode);
 };
 
-function botTurn(mode) {
+function p2Turn(mode) {
+  document.querySelector("#continueButtonSpan").style.display = "block";
   switch (mode) {
     case "singleplayer":
+      p2Decision = Math.floor(Math.random() * 2) + 1;
+      document.querySelector("#p2ChoseNumSpan").textContent = p2Decision;
+      switch (p2Decision) {
+        case 1:
+          document.querySelector("#p2Num1").style.display = "inline-block";
+          document.querySelector("#p2Num2").style.display = "none";
+          if (p2Decision === p1Decision) {
+            document.querySelector("#numMatchResults").textContent =
+              "The Bot guessed your number, it gets a point!";
+            p2Points++;
+            document.querySelector("#p2PointsSpan").textContent = p2Points;
+
+            if (p2Points === goalNum) {
+              // alert("The " + p2Name + " wins!");
+              // in progress...
+            }
+          } else {
+            document.querySelector("#numMatchResults").textContent =
+              "The Bot guessed the wrong number, you get a point!";
+            p1Points++;
+            document.querySelector("#p1PointsSpan").textContent = p1Points;
+
+            if (p1Points === goalNum) {
+              // alert("The " + p2Name + " wins!");
+              // in progress...
+            }
+          }
+          break;
+        case 2:
+          document.querySelector("#p2Num1").style.display = "none";
+          document.querySelector("#p2Num2").style.display = "inline-block";
+          break;
+      }
       break;
     case "multiplayer":
       break;

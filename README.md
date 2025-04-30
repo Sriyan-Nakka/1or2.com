@@ -10,6 +10,8 @@ In multiplayer mode, it is the same as singleplayer but you play with a friend. 
 
 This is the first project that I had made a custom background! It is a very simple one but I will try to improve in later projects. Hope you like it! :)
 
+![ChatGPT Background Image](https://res.cloudinary.com/dxcywxeqq/image/upload/v1745994158/background_xxd2z8.jpg "First custom background image used in a project.")
+
 Also, check out my Blog at https://www.sriyansites.mywire.org
 
 Check out my WhatsApp Channel: https://www.whatsapp.com/channel/0029Vb8hmKi6xCSRaR3zhz2G
