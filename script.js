@@ -6,6 +6,8 @@ let goalNum;
 let playMode = "";
 let p1Decision;
 let p2Decision;
+let p1NumTurn;
+let p2NumTurn;
 
 document.querySelector("#singleplayerButton").onclick = function () {
   playMode = "singleplayer";
@@ -22,6 +24,20 @@ document.querySelector("#restartButton").onclick = function () {
   document.querySelector("#multiplayerButton").style.display = "inline-block";
   document.querySelector("#gameContainer").style.display = "none";
   document.querySelector("#images").style.display = "none";
+};
+
+document.querySelector("#continueButton").onclick = function () {
+  if (p1NumTurn) {
+    p1NumTurn = false;
+    p2NumTurn = true;
+  } else {
+    p1NumTurn = true;
+    p2NumTurn = false;
+  }
+  document.querySelector("#continueButtonSpan").style.display = "none";
+  document.querySelector("#pickNumberText").style.display = "block";
+  document.querySelector("#images").style.display = "block";
+  document.querySelector("#selections").style.display = "none";
 };
 
 function playGame(mode) {
@@ -44,6 +60,9 @@ function playGame(mode) {
   p2Points = 0;
   document.querySelector("#p1PointsSpan").textContent = p1Points;
   document.querySelector("#p2PointsSpan").textContent = p2Points;
+
+  p1NumTurn = true;
+  p2NumTurn = false;
 
   document.querySelector("#singleplayerButton").style.display = "none";
   document.querySelector("#multiplayerButton").style.display = "none";
@@ -104,65 +123,82 @@ function playGame(mode) {
 
 //players turn functions:
 document.querySelector("#num1").onclick = function () {
-  document.querySelector("#pickNumberText").style.display = "none";
-  document.querySelector("#images").style.display = "none";
-  document.querySelector("#selections").style.display = "block";
-  p1Decision = 1;
-  document.querySelector("#p1ChoseNumSpan").textContent = p1Decision;
-  document.querySelector("#p1Num1").style.display = "inline-block";
-  document.querySelector("#p1Num2").style.display = "none";
+  if (p1NumTurn) {
+    document.querySelector("#pickNumberText").style.display = "none";
+    document.querySelector("#images").style.display = "none";
+    document.querySelector("#selections").style.display = "block";
+    p1Decision = 1;
+    document.querySelector("#p1ChoseNumSpan").textContent = p1Decision;
+    document.querySelector("#p1Num1").style.display = "inline-block";
+    document.querySelector("#p1Num2").style.display = "none";
 
-  p2Turn(playMode);
+    p2Turn(playMode);
+  } else {
+    //guess number code in progress...
+  }
 };
 
 document.querySelector("#num2").onclick = function () {
-  document.querySelector("#pickNumberText").style.display = "none";
-  document.querySelector("#images").style.display = "none";
-  document.querySelector("#selections").style.display = "block";
-  p1Decision = 2;
-  document.querySelector("#p1ChoseNumSpan").textContent = p1Decision;
-  document.querySelector("#p1Num1").style.display = "none";
-  document.querySelector("#p1Num2").style.display = "inline-block";
+  if (p1NumTurn) {
+    document.querySelector("#pickNumberText").style.display = "none";
+    document.querySelector("#images").style.display = "none";
+    document.querySelector("#selections").style.display = "block";
+    p1Decision = 2;
+    document.querySelector("#p1ChoseNumSpan").textContent = p1Decision;
+    document.querySelector("#p1Num1").style.display = "none";
+    document.querySelector("#p1Num2").style.display = "inline-block";
 
-  p2Turn(playMode);
+    p2Turn(playMode);
+  } else {
+    //guess number code in progress...
+  }
 };
 
 function p2Turn(mode) {
   document.querySelector("#continueButtonSpan").style.display = "block";
   switch (mode) {
     case "singleplayer":
-      p2Decision = Math.floor(Math.random() * 2) + 1;
-      document.querySelector("#p2ChoseNumSpan").textContent = p2Decision;
-      switch (p2Decision) {
-        case 1:
-          document.querySelector("#p2Num1").style.display = "inline-block";
-          document.querySelector("#p2Num2").style.display = "none";
-          if (p2Decision === p1Decision) {
-            document.querySelector("#numMatchResults").textContent =
-              "The Bot guessed your number, it gets a point!";
-            p2Points++;
-            document.querySelector("#p2PointsSpan").textContent = p2Points;
+      if (p1NumTurn) {
+        p2Decision = Math.floor(Math.random() * 2) + 1;
+        document.querySelector("#p2ChoseNumSpan").textContent = p2Decision;
+        switch (p2Decision) {
+          case 1:
+            document.querySelector("#p2Num1").style.display = "inline-block";
+            document.querySelector("#p2Num2").style.display = "none";
+            break;
+          case 2:
+            document.querySelector("#p2Num1").style.display = "none";
+            document.querySelector("#p2Num2").style.display = "inline-block";
+            break;
+        }
+        if (p2Decision === p1Decision) {
+          document.querySelector("#numMatchResults").textContent =
+            "The Bot guessed your number, it gets a point!";
+          p2Points++;
+          document.querySelector("#p2PointsSpan").textContent = p2Points;
 
-            if (p2Points === goalNum) {
-              // alert("The " + p2Name + " wins!");
-              // in progress...
-            }
-          } else {
-            document.querySelector("#numMatchResults").textContent =
-              "The Bot guessed the wrong number, you get a point!";
-            p1Points++;
-            document.querySelector("#p1PointsSpan").textContent = p1Points;
-
-            if (p1Points === goalNum) {
-              // alert("The " + p2Name + " wins!");
-              // in progress...
-            }
+          if (p2Points === goalNum) {
+            // alert("The " + p2Name + " wins!");
+            // in progress...
           }
-          break;
-        case 2:
-          document.querySelector("#p2Num1").style.display = "none";
-          document.querySelector("#p2Num2").style.display = "inline-block";
-          break;
+        } else {
+          document.querySelector("#numMatchResults").textContent =
+            "The Bot guessed the wrong number, you get a point!";
+          p1Points++;
+          document.querySelector("#p1PointsSpan").textContent = p1Points;
+
+          if (p1Points === goalNum) {
+            // alert("The " + p2Name + " wins!");
+            // in progress...
+          }
+        }
+      } else {
+        let botSelectedNum = Math.floor(Math.random() * 2) + 1;
+        if (botSelectedNum === p1Decision) {
+          // in progress...
+        } else {
+          //in progress...
+        }
       }
       break;
     case "multiplayer":
