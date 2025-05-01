@@ -6,8 +6,8 @@ let goalNum;
 let playMode = "";
 let p1Decision;
 let p2Decision;
-let p1NumTurn;
-let p2NumTurn;
+let p1NumSelectTurn;
+let p2NumSelectTurn;
 
 document.querySelector("#singleplayerButton").onclick = function () {
   playMode = "singleplayer";
@@ -27,12 +27,18 @@ document.querySelector("#restartButton").onclick = function () {
 };
 
 document.querySelector("#continueButton").onclick = function () {
-  if (p1NumTurn) {
-    p1NumTurn = false;
-    p2NumTurn = true;
+  if (p1NumSelectTurn) {
+    p1NumSelectTurn = false;
+    p2NumSelectTurn = true;
+    document.querySelector(
+      "#pickNumberText"
+    ).textContent = `Pick a number between 1 and 2 you think that the Bot selected:`;
   } else {
-    p1NumTurn = true;
-    p2NumTurn = false;
+    p1NumSelectTurn = true;
+    p2NumSelectTurn = false;
+    document.querySelector(
+      "#pickNumberText"
+    ).textContent = `Pick a number between 1 and 2 for the Bot to guess:`;
   }
   document.querySelector("#continueButtonSpan").style.display = "none";
   document.querySelector("#pickNumberText").style.display = "block";
@@ -61,8 +67,8 @@ function playGame(mode) {
   document.querySelector("#p1PointsSpan").textContent = p1Points;
   document.querySelector("#p2PointsSpan").textContent = p2Points;
 
-  p1NumTurn = true;
-  p2NumTurn = false;
+  p1NumSelectTurn = true;
+  p2NumSelectTurn = false;
 
   document.querySelector("#singleplayerButton").style.display = "none";
   document.querySelector("#multiplayerButton").style.display = "none";
@@ -79,9 +85,9 @@ function playGame(mode) {
       p2Name = "Bot";
       document.querySelector("#p1Name").textContent = p1Name;
       document.querySelector("#p2Name").textContent = p2Name;
-      document.querySelector("#playerNamePick").textContent = p1Name;
-      document.querySelector("#playerGuessPick").textContent = "the " + p2Name;
-
+      document.querySelector(
+        "#pickNumberText"
+      ).textContent = `Pick a number between 1 and 2 for the Bot to guess:`;
       break;
 
     case "multiplayer":
@@ -123,42 +129,34 @@ function playGame(mode) {
 
 //players turn functions:
 document.querySelector("#num1").onclick = function () {
-  if (p1NumTurn) {
-    document.querySelector("#pickNumberText").style.display = "none";
-    document.querySelector("#images").style.display = "none";
-    document.querySelector("#selections").style.display = "block";
-    p1Decision = 1;
-    document.querySelector("#p1ChoseNumSpan").textContent = p1Decision;
-    document.querySelector("#p1Num1").style.display = "inline-block";
-    document.querySelector("#p1Num2").style.display = "none";
+  document.querySelector("#pickNumberText").style.display = "none";
+  document.querySelector("#images").style.display = "none";
+  document.querySelector("#selections").style.display = "block";
+  p1Decision = 1;
+  document.querySelector("#p1ChoseNumSpan").textContent = p1Decision;
+  document.querySelector("#p1Num1").style.display = "inline-block";
+  document.querySelector("#p1Num2").style.display = "none";
 
-    p2Turn(playMode);
-  } else {
-    //guess number code in progress...
-  }
+  p2Turn(playMode);
 };
 
 document.querySelector("#num2").onclick = function () {
-  if (p1NumTurn) {
-    document.querySelector("#pickNumberText").style.display = "none";
-    document.querySelector("#images").style.display = "none";
-    document.querySelector("#selections").style.display = "block";
-    p1Decision = 2;
-    document.querySelector("#p1ChoseNumSpan").textContent = p1Decision;
-    document.querySelector("#p1Num1").style.display = "none";
-    document.querySelector("#p1Num2").style.display = "inline-block";
+  document.querySelector("#pickNumberText").style.display = "none";
+  document.querySelector("#images").style.display = "none";
+  document.querySelector("#selections").style.display = "block";
+  p1Decision = 2;
+  document.querySelector("#p1ChoseNumSpan").textContent = p1Decision;
+  document.querySelector("#p1Num1").style.display = "none";
+  document.querySelector("#p1Num2").style.display = "inline-block";
 
-    p2Turn(playMode);
-  } else {
-    //guess number code in progress...
-  }
+  p2Turn(playMode);
 };
 
 function p2Turn(mode) {
   document.querySelector("#continueButtonSpan").style.display = "block";
   switch (mode) {
     case "singleplayer":
-      if (p1NumTurn) {
+      if (p1NumSelectTurn) {
         p2Decision = Math.floor(Math.random() * 2) + 1;
         document.querySelector("#p2ChoseNumSpan").textContent = p2Decision;
         switch (p2Decision) {
@@ -195,12 +193,26 @@ function p2Turn(mode) {
       } else {
         let botSelectedNum = Math.floor(Math.random() * 2) + 1;
         if (botSelectedNum === p1Decision) {
-          // in progress...
+          document.querySelector("#numMatchResults").textContent =
+            "You guessed the Bot's number, you get a point!";
+          p1Points++;
+          document.querySelector("#p1PointsSpan").textContent = p1Points;
+          if (p1Points === goalNum) {
+            // in progress...
+          }
         } else {
-          //in progress...
+          document.querySelector("#numMatchResults").textContent =
+            "You guessed the wrong number, the Bot gets a point!";
+          p2Points++;
+          document.querySelector("#p2PointsSpan").textContent = p2Points;
+          if (p2Points === goalNum) {
+            // alert("The " + p2Name + " wins!");
+            // in progress...
+          }
         }
       }
       break;
+
     case "multiplayer":
       break;
   }
