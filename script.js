@@ -133,13 +133,15 @@ function playGame(mode) {
         if (p2Name != null && p2Name != "" && p2Name != undefined) {
           p2Name = p2Name.trim();
           document.querySelector("#p2Name").textContent = p2Name;
-          document.querySelector("#playerNamePick").textContent = p1Name;
-          document.querySelector("#playerGuessPick").textContent = p2Name;
           break;
         } else {
           alert("Please enter a valid name for Player 2.");
         }
       }
+
+      document.querySelector(
+        "#pickNumberText"
+      ).innerHTML = `${p1Name}, pick a number between 1 and 2 you think that ${p2Name} would select:`;
       break;
   }
   document.querySelector("#p1NameSpan").textContent = p1Name;
