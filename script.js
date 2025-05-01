@@ -30,15 +30,35 @@ document.querySelector("#continueButton").onclick = function () {
   if (p1NumSelectTurn) {
     p1NumSelectTurn = false;
     p2NumSelectTurn = true;
-    document.querySelector(
-      "#pickNumberText"
-    ).textContent = `Pick a number between 1 and 2 you think that the Bot selected:`;
+    switch (playMode) {
+      case "singleplayer":
+        document.querySelector(
+          "#pickNumberText"
+        ).textContent = `Pick a number between 1 and 2 you think that the Bot selected:`;
+        break;
+
+      case "multiplayer":
+        document.querySelector(
+          "#pickNumberText"
+        ).textContent = `${p1Name}, pick a number between 1 and 2 you think that ${p2Name} would select:`;
+        break;
+    }
   } else {
     p1NumSelectTurn = true;
     p2NumSelectTurn = false;
-    document.querySelector(
-      "#pickNumberText"
-    ).textContent = `Pick a number between 1 and 2 for the Bot to guess:`;
+    switch (playMode) {
+      case "singleplayer":
+        document.querySelector(
+          "#pickNumberText"
+        ).textContent = `Pick a number between 1 and 2 for the Bot to guess:`;
+        break;
+
+      case "multiplayer":
+        document.querySelector(
+          "#pickNumberText"
+        ).textContent = `${p1Name}, pick a number between 1 and 2 for ${p2Name} to guess:`;
+        break;
+    }
   }
   document.querySelector("#continueButtonSpan").style.display = "none";
   document.querySelector("#pickNumberText").style.display = "block";
