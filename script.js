@@ -158,62 +158,83 @@ function p2Turn(mode) {
     case "singleplayer":
       if (p1NumSelectTurn) {
         p2Decision = Math.floor(Math.random() * 2) + 1;
-        document.querySelector("#p2ChoseNumSpan").textContent = p2Decision;
-        switch (p2Decision) {
-          case 1:
-            document.querySelector("#p2Num1").style.display = "inline-block";
-            document.querySelector("#p2Num2").style.display = "none";
-            break;
-          case 2:
-            document.querySelector("#p2Num1").style.display = "none";
-            document.querySelector("#p2Num2").style.display = "inline-block";
-            break;
-        }
         if (p2Decision === p1Decision) {
           document.querySelector("#numMatchResults").textContent =
             "The Bot guessed your number, it gets a point!";
           p2Points++;
           document.querySelector("#p2PointsSpan").textContent = p2Points;
-
-          if (p2Points === goalNum) {
-            // alert("The " + p2Name + " wins!");
-            // in progress...
-          }
         } else {
           document.querySelector("#numMatchResults").textContent =
             "The Bot guessed the wrong number, you get a point!";
           p1Points++;
           document.querySelector("#p1PointsSpan").textContent = p1Points;
-
-          if (p1Points === goalNum) {
-            // alert("The " + p2Name + " wins!");
-            // in progress...
-          }
         }
       } else {
-        let botSelectedNum = Math.floor(Math.random() * 2) + 1;
-        if (botSelectedNum === p1Decision) {
+        p2Decision = Math.floor(Math.random() * 2) + 1;
+        if (p2Decision === p1Decision) {
           document.querySelector("#numMatchResults").textContent =
             "You guessed the Bot's number, you get a point!";
           p1Points++;
           document.querySelector("#p1PointsSpan").textContent = p1Points;
-          if (p1Points === goalNum) {
-            // in progress...
-          }
         } else {
           document.querySelector("#numMatchResults").textContent =
             "You guessed the wrong number, the Bot gets a point!";
           p2Points++;
           document.querySelector("#p2PointsSpan").textContent = p2Points;
-          if (p2Points === goalNum) {
-            // alert("The " + p2Name + " wins!");
-            // in progress...
-          }
         }
       }
       break;
 
     case "multiplayer":
+      //in progress...
       break;
+  }
+
+  document.querySelector("#p2ChoseNumSpan").textContent = p2Decision;
+  switch (p2Decision) {
+    case 1:
+      document.querySelector("#p2Num1").style.display = "inline-block";
+      document.querySelector("#p2Num2").style.display = "none";
+      break;
+    case 2:
+      document.querySelector("#p2Num1").style.display = "none";
+      document.querySelector("#p2Num2").style.display = "inline-block";
+      break;
+  }
+
+  checkForWinner();
+}
+
+function checkForWinner() {
+  if (p1Points === goalNum) {
+    document.querySelector("#buttonsSpan").style.display = "none";
+    setTimeout(function () {
+      alert(`${p1Name} won! Press OK to continue.`);
+      document.querySelector("#singleplayerButton").style.display =
+        "inline-block";
+      document.querySelector("#multiplayerButton").style.display =
+        "inline-block";
+      document.querySelector("#gameContainer").style.display = "none";
+      document.querySelector("#images").style.display = "none";
+    }, 2000);
+  } else if (p2Points === goalNum) {
+    document.querySelector("#buttonsSpan").style.display = "none";
+    switch (playMode) {
+      case "singleplayer":
+        p2Name = "The Bot";
+        break;
+      case "multiplayer":
+        p2Name = p2Name;
+        break;
+    }
+    setTimeout(function () {
+      alert(`${p2Name} won! Press OK to continue.`);
+      document.querySelector("#singleplayerButton").style.display =
+        "inline-block";
+      document.querySelector("#multiplayerButton").style.display =
+        "inline-block";
+      document.querySelector("#gameContainer").style.display = "none";
+      document.querySelector("#images").style.display = "none";
+    }, 2000);
   }
 }
