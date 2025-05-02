@@ -151,15 +151,29 @@ function playGame(mode) {
 
 //players turn functions:
 document.querySelector("#num1").onclick = function () {
-  document.querySelector("#pickNumberText").style.display = "none";
-  document.querySelector("#images").style.display = "none";
-  document.querySelector("#selections").style.display = "block";
   p1Decision = 1;
+  document.querySelector("#pickNumberText").style.display = "none";
   document.querySelector("#p1ChoseNumSpan").textContent = p1Decision;
   document.querySelector("#p1Num1").style.display = "inline-block";
   document.querySelector("#p1Num2").style.display = "none";
 
-  p2Turn(playMode);
+  // switch (playMode) {
+  //   case "singleplayer":
+  //     document.querySelector("#images").style.display = "none";
+  //     document.querySelector("#selections").style.display = "block";
+  //     p2Turn(playMode);
+  //     break;
+
+  //   case "multiplayer":
+  //     if (p1NumSelectTurn) {
+  //       p1NumSelectTurn = false;
+  //       p2NumSelectTurn = true;
+  //       document.querySelector(
+  //         "#pickNumberText"
+  //       ).textContent = `${p2Name}, pick a number between 1 and 2 you think that ${p1Name} would select:`;
+  //     }
+  //     break;
+  // }
 };
 
 document.querySelector("#num2").onclick = function () {
@@ -209,6 +223,8 @@ function p2Turn(mode) {
 
     case "multiplayer":
       //in progress...
+      if (p1NumSelectTurn) {
+      }
       break;
   }
 
