@@ -12,13 +12,13 @@ let multiPlayerTurn = 1;
 
 document.querySelector("#singleplayerButton").onclick = function () {
   playMode = "singleplayer";
-  alert("You are playing in singleplayer mode.");
+  alert("You are playing singleplayer mode.");
   playGame(playMode);
 };
 
 document.querySelector("#multiplayerButton").onclick = function () {
   playMode = "multiplayer";
-  alert("You are playing in multiplayer mode.");
+  alert("You are playing multiplayer mode.");
   playGame(playMode);
 };
 
@@ -101,6 +101,7 @@ function playGame(mode) {
 
   document.querySelector("#singleplayerButton").style.display = "none";
   document.querySelector("#multiplayerButton").style.display = "none";
+  document.querySelector("#buttonsSpan").style.display = "block";
   document.querySelector("#continueButtonSpan").style.display = "none";
   document.querySelector("#selections").style.display = "none";
   document.querySelector("#gameContainer").style.display = "block";
@@ -150,7 +151,7 @@ function playGame(mode) {
 
       document.querySelector(
         "#pickNumberText"
-      ).innerHTML = `${p1Name}, pick a number between 1 and 2 you think that ${p2Name} would select:`;
+      ).textContent = `${p1Name}, pick a number between 1 and 2 you think that ${p2Name} to guess:`;
       break;
   }
   document.querySelector("#p1NameSpan").textContent = p1Name;
@@ -225,17 +226,19 @@ document.querySelector("#num2").onclick = function () {
 
 function multiPlayerFunctions() {
   if (p1NumSelectTurn) {
+    console.log("p1NumSelectTurn");
     p1NumSelectTurn = false;
     p2NumSelectTurn = true;
     document.querySelector(
       "#pickNumberText"
     ).textContent = `${p2Name}, pick a number between 1 and 2 you think that ${p1Name} would select:`;
   } else if (p2NumSelectTurn) {
+    console.log("p2NumSelectTurn");
     p1NumSelectTurn = true;
     p2NumSelectTurn = false;
     document.querySelector(
       "#pickNumberText"
-    ).textContent = `${p1Name}, pick a number between 1 and 2 you think that ${p2Name} would select:`;
+    ).textContent = `${p1Name}, pick a number between 1 and 2 you think that ${p2Name} to guess:`;
   }
   switch (multiPlayerTurn) {
     case 1:
@@ -254,8 +257,8 @@ function roundResults(mode) {
   document.querySelector("#continueButtonSpan").style.display = "block";
   switch (mode) {
     case "singleplayer":
+      p2Decision = Math.floor(Math.random() * 2) + 1;
       if (p1NumSelectTurn) {
-        p2Decision = Math.floor(Math.random() * 2) + 1;
         if (p2Decision === p1Decision) {
           document.querySelector("#numMatchResults").textContent =
             "The Bot guessed your number, it gets a point!";
@@ -268,7 +271,6 @@ function roundResults(mode) {
           document.querySelector("#p1PointsSpan").textContent = p1Points;
         }
       } else {
-        p2Decision = Math.floor(Math.random() * 2) + 1;
         if (p2Decision === p1Decision) {
           document.querySelector("#numMatchResults").textContent =
             "You guessed the Bot's number, you get a point!";
@@ -284,7 +286,33 @@ function roundResults(mode) {
       break;
 
     case "multiplayer":
-      //in progress...
+      if (p1NumSelectTurn) {
+        if (p2Decision === p1Decision) {
+          document.querySelector(
+            "#numMatchResults"
+          ).textContent = `${p2Name} guessed ${p1Name}'s number, ${p2Name} gets a point!`;
+          p2Points++;
+          document.querySelector("#p2PointsSpan").textContent = p2Points;
+        } else {
+          document.querySelector(
+            "#numMatchResults"
+          ).textContent = `${p2Name} wasn't able to guess ${p1Name}'s number, ${p1Name} gets a point!`;
+          p1Points++;
+          document.querySelector("#p1PointsSpan").textContent = p1Points;
+        }
+      } else {
+        if (p2Decision === p1Decision) {
+          document.querySelector("#numMatchResults").textContent =
+            "You guessed the Bot's number, you get a point!";
+          p1Points++;
+          document.querySelector("#p1PointsSpan").textContent = p1Points;
+        } else {
+          document.querySelector("#numMatchResults").textContent =
+            "You guessed the wrong number, the Bot gets a point!";
+          p2Points++;
+          document.querySelector("#p2PointsSpan").textContent = p2Points;
+        }
+      }
       break;
   }
 
