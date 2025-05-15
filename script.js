@@ -253,34 +253,34 @@ document.querySelector("#num2").onclick = function () {
   }
 };
 
-function multiPlayerFunctions() {
-  if (p1NumSelectTurn) {
-    console.log("p1NumSelectTurn");
-    // p1NumSelectTurn = false;
-    // p2NumSelectTurn = true;
-  } else if (p2NumSelectTurn) {
-    console.log("p2NumSelectTurn");
-    // p1NumSelectTurn = true;
-    // p2NumSelectTurn = false;
-    document.querySelector(
-      "#pickNumberText"
-    ).textContent = `${p1Name}, pick a number between 1 and 2 for ${p2Name} to guess:`;
-  }
-  switch (multiPlayerTurn) {
-    case 1:
-      multiPlayerTurn++;
-      document.querySelector(
-        "#pickNumberText"
-      ).textContent = `${p2Name}, pick a number between 1 and 2 you think that ${p1Name} would select:`;
-      break;
-    case 2:
-      document.querySelector("#pickNumberText").style.display = "none";
-      document.querySelector("#images").style.display = "none";
-      document.querySelector("#selections").style.display = "block";
-      roundResults(playMode);
-      break;
-  }
-}
+// function multiPlayerFunctions() {
+//   if (p1NumSelectTurn) {
+//     console.log("p1NumSelectTurn");
+// p1NumSelectTurn = false;
+// p2NumSelectTurn = true;
+//   } else if (p2NumSelectTurn) {
+//     console.log("p2NumSelectTurn");
+//     // p1NumSelectTurn = true;
+//     // p2NumSelectTurn = false;
+//     document.querySelector(
+//       "#pickNumberText"
+//     ).textContent = `${p1Name}, pick a number between 1 and 2 for ${p2Name} to guess:`;
+//   }
+//   switch (multiPlayerTurn) {
+//     case 1:
+//       multiPlayerTurn++;
+//       document.querySelector(
+//         "#pickNumberText"
+//       ).textContent = `${p2Name}, pick a number between 1 and 2 you think that ${p1Name} would select:`;
+//       break;
+//     case 2:
+//       document.querySelector("#pickNumberText").style.display = "none";
+//       document.querySelector("#images").style.display = "none";
+//       document.querySelector("#selections").style.display = "block";
+//       roundResults(playMode);
+//       break;
+//   }
+// }
 
 function roundResults(mode) {
   document.querySelector("#continueButtonSpan").style.display = "block";
@@ -331,13 +331,15 @@ function roundResults(mode) {
         }
       } else {
         if (p2Decision === p1Decision) {
-          document.querySelector("#numMatchResults").textContent =
-            "You guessed the Bot's number, you get a point!";
+          document.querySelector(
+            "#numMatchResults"
+          ).textContent = `${p1Name} guessed ${p2Name}'s number, ${p1Name} gets a point!`;
           p1Points++;
           document.querySelector("#p1PointsSpan").textContent = p1Points;
         } else {
-          document.querySelector("#numMatchResults").textContent =
-            "You guessed the wrong number, the Bot gets a point!";
+          document.querySelector(
+            "#numMatchResults"
+          ).textContent = `${p1Name} wasn't able to guess ${p2Name}'s number, ${p2Name} gets a point!`;
           p2Points++;
           document.querySelector("#p2PointsSpan").textContent = p2Points;
         }
