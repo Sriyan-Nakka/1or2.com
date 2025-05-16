@@ -46,10 +46,10 @@ document.querySelector("#continueButton").onclick = function () {
         p2NumSelectTurn = true;
         document.querySelector(
           "#pickNumberText"
-        ).textContent = `${p1Name}, pick a number between 1 and 2 you think that ${p2Name} would select:`;
+        ).textContent = `${p2Name}, pick a number between 1 and 2 for ${p1Name} to guess:`;
         break;
     }
-  } else {
+  } else if (p2NumSelectTurn) {
     p1NumSelectTurn = true;
     p2NumSelectTurn = false;
     switch (playMode) {
@@ -178,6 +178,27 @@ document.querySelector("#num1").onclick = function () {
     case "multiplayer":
       multiPlayerTurn++;
       if (p2NumSelectTurn) {
+        document.querySelector(
+          "#pickNumberText"
+        ).textContent = `${p1Name}, pick a number between 1 and 2 you think that ${p2Name} would select:`;
+        switch (multiPlayerTurn) {
+          case 1:
+            p2Decision = 1;
+            document.querySelector("#p2ChoseNumSpan").textContent = p2Decision;
+            document.querySelector("#p2Num1").style.display = "inline-block";
+            document.querySelector("#p2Num2").style.display = "none";
+            break;
+          case 2:
+            p1Decision = 1;
+            document.querySelector("#p1ChoseNumSpan").textContent = p1Decision;
+            document.querySelector("#p1Num1").style.display = "inline-block";
+            document.querySelector("#p1Num2").style.display = "none";
+            document.querySelector("#pickNumberText").style.display = "none";
+            document.querySelector("#images").style.display = "none";
+            document.querySelector("#selections").style.display = "block";
+            roundResults(playMode);
+            break;
+        }
       } else if (p1NumSelectTurn) {
         document.querySelector(
           "#pickNumberText"
@@ -201,8 +222,6 @@ document.querySelector("#num1").onclick = function () {
             break;
         }
       }
-
-      // multiPlayerFunctions();
       break;
   }
 };
@@ -224,6 +243,27 @@ document.querySelector("#num2").onclick = function () {
     case "multiplayer":
       multiPlayerTurn++;
       if (p2NumSelectTurn) {
+        document.querySelector(
+          "#pickNumberText"
+        ).textContent = `${p2Name}, pick a number between 1 and 2 for ${p1Name} to guess:`;
+        switch (multiPlayerTurn) {
+          case 1:
+            p2Decision = 2;
+            document.querySelector("#p2ChoseNumSpan").textContent = p2Decision;
+            document.querySelector("#p2Num1").style.display = "none";
+            document.querySelector("#p2Num2").style.display = "inline-block";
+            break;
+          case 2:
+            p1Decision = 2;
+            document.querySelector("#p1ChoseNumSpan").textContent = p1Decision;
+            document.querySelector("#p1Num1").style.display = "none";
+            document.querySelector("#p1Num2").style.display = "inline-block";
+            document.querySelector("#pickNumberText").style.display = "none";
+            document.querySelector("#images").style.display = "none";
+            document.querySelector("#selections").style.display = "block";
+            roundResults(playMode);
+            break;
+        }
       } else if (p1NumSelectTurn) {
         document.querySelector(
           "#pickNumberText"
@@ -247,40 +287,9 @@ document.querySelector("#num2").onclick = function () {
             break;
         }
       }
-
-      // multiPlayerFunctions();
       break;
   }
 };
-
-// function multiPlayerFunctions() {
-//   if (p1NumSelectTurn) {
-//     console.log("p1NumSelectTurn");
-// p1NumSelectTurn = false;
-// p2NumSelectTurn = true;
-//   } else if (p2NumSelectTurn) {
-//     console.log("p2NumSelectTurn");
-//     // p1NumSelectTurn = true;
-//     // p2NumSelectTurn = false;
-//     document.querySelector(
-//       "#pickNumberText"
-//     ).textContent = `${p1Name}, pick a number between 1 and 2 for ${p2Name} to guess:`;
-//   }
-//   switch (multiPlayerTurn) {
-//     case 1:
-//       multiPlayerTurn++;
-//       document.querySelector(
-//         "#pickNumberText"
-//       ).textContent = `${p2Name}, pick a number between 1 and 2 you think that ${p1Name} would select:`;
-//       break;
-//     case 2:
-//       document.querySelector("#pickNumberText").style.display = "none";
-//       document.querySelector("#images").style.display = "none";
-//       document.querySelector("#selections").style.display = "block";
-//       roundResults(playMode);
-//       break;
-//   }
-// }
 
 function roundResults(mode) {
   document.querySelector("#continueButtonSpan").style.display = "block";
