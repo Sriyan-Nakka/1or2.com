@@ -258,7 +258,7 @@ document.querySelector("#num2").onclick = function () {
       if (p2NumSelectTurn) {
         document.querySelector(
           "#pickNumberText"
-        ).textContent = `${p2Name}, pick a number between 1 and 2 for ${p1Name} to guess:`;
+        ).textContent = `${p1Name}, pick a number between 1 and 2 you think that ${p2Name} would select:`;
         switch (multiPlayerTurn) {
           case 1:
             p2Decision = 2;
